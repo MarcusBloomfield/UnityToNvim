@@ -15,16 +15,20 @@ In Unity, go to:
 Once configured:
 1. Double-click any script file in Unity
 2. The file will automatically:
-   - Start a Neovim server if none is running
-   - Open the file in a new tab of the existing Neovim instance
+   - If no Neovim server exists: Start a new Neovim instance with the file opened normally, and enable remote listening for future files
+   - If Neovim server exists: Open the file in a new tab of the existing Neovim instance
 3. No manual server setup required!
 
 ## How It Works
 
 The `UnityToNvim.bat` script:
 1. Checks if a Neovim instance is running on `localhost:6969`
-2. If no instance exists, starts a new Neovim server with remote listening enabled
-3. Opens the file in a new tab using remote commands
+2. If no instance exists:
+   - Starts a new Neovim instance with `--listen localhost:6969`
+   - Opens the file normally in the new Neovim window
+   - Server is now ready for future remote connections
+3. If instance exists:
+   - Opens the file in a new tab using remote commands
 4. Handles both scenarios automatically - no manual intervention needed
 
 ## Files
@@ -42,7 +46,8 @@ If files aren't opening properly:
 ## Benefits
 
 - **Fully automatic**: No need to manually start servers
-- Opens files in new tabs instead of new Neovim instances
+- **Natural first experience**: First file opens normally in Neovim
+- **Smart tab management**: Subsequent files open in new tabs
 - Maintains your Neovim session and configuration
 - Faster file opening
 - Better workflow integration

@@ -21,23 +21,20 @@ cd /d "C:\Users\marcu\Documents\Hardship\Hardship-Town-Survival\Assets\Scripts"
 REM Try to connect to existing Neovim instance
 nvim --server localhost:6969 --remote-send ":echo 'Testing connection'<CR>" >nul 2>&1
 if errorlevel neq 0 (
-    REM No existing instance found, start a new one
+    REM No existing instance found, start a new one with server listening
     echo Starting new Neovim instance with remote listening >> "C:\Users\marcu\Documents\UnityToNvim\unity_debug.log"
     echo Starting Neovim server on localhost:6969...
     
-    REM Start Neovim with remote listening in background
+    REM Start Neovim with remote listening and open file normally
     if "%~2"=="" (
         start nvim --listen localhost:6969 "%~1"
     ) else (
         start nvim --listen localhost:6969 "+%~2" "%~1"
     )
     
-    REM Wait a moment for the server to start
-    timeout /t 2 /nobreak >nul
-    
-    echo Neovim server started successfully.
+    echo Neovim server started successfully with file opened normally.
 ) else (
-    REM Existing instance found, open file in new tab
+    REM Existing instance found, open file in new tab using remote commands
     echo Opening file in existing Neovim instance in new tab >> "C:\Users\marcu\Documents\UnityToNvim\unity_debug.log"
     
     REM Open file in new tab using remote commands
